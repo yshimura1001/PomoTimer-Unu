@@ -52,9 +52,10 @@ namespace PomoTimer.ViewModels
             TimeSpan intervel = _model.EndTime - _now;
             RestTimeStr = _timerService.GetRestTimeStrBymmss(_now, _model.EndTime);
             // デバッグ用
-            RestTimeStr += $" [{_model.EndTimeSeconds}]";
+            //RestTimeStr += $" [{_model.EndTimeSeconds}]";
             NowTimeStr = _timerService.GetNowStrByHHmm(_now);
-            if (_model.EndTimeSeconds <= 0)
+            //if (_model.EndTimeSeconds <= 0)
+            if(_now >= _model.EndTime)
             {
                 _loggerService.Info("Finish Break Time.");
                 _excelService.WriteRow(_now, _model.StartTime, _model.EndTime, TimeFrameStr, "はい", "BreakTimer");
