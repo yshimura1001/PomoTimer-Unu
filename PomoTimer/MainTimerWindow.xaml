@@ -1,0 +1,92 @@
+﻿<Window x:Class="PomoTimer.MainTimerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PomoTimer"
+        mc:Ignorable="d"
+        Title="{Binding AppTitleStr}" Height="185" Width="220"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize">
+    <DockPanel Margin="5">
+
+        <!-- 下部ボタン -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,0,0,0">
+            <ContentControl x:Name="Buttons" />
+        </StackPanel>
+
+        <!-- メインの表組（Grid だけで構成） -->
+        <Grid>
+            <!-- 列定義：左=ラベル、中央=隙間、右=値 -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" SharedSizeGroup="LabelCol"/>
+                <ColumnDefinition Width="5" SharedSizeGroup="LabelCol"/>
+                <ColumnDefinition Width="*"   SharedSizeGroup="ValueCol"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 行定義 -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+
+            <!-- 左列（ラベル） -->
+            <Label Grid.Row="0" Grid.Column="0" Content="現在のポモ" 
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="時間枠" 
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="残り" 
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="現時刻" 
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+
+            <!-- 右列（ヘッダー＋データ3行） -->
+            <!-- ヘッダー -->
+            <Border Grid.Row="0" Grid.Column="2"
+                    BorderBrush="Black" BorderThickness="1"
+                    Padding="1">
+                <TextBlock Text="{Binding CurrentTimeFrameStr}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           FontSize="16"/>
+            </Border>
+
+            <!-- 時間枠のレンジ -->
+            <Border Grid.Row="1" Grid.Column="2"
+                    BorderBrush="Black" BorderThickness="1"
+                    Padding="1">
+                <TextBlock Text="{Binding CurrentTimeFrameRangeStr}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           FontSize="14"/>
+            </Border>
+
+            <!-- 残り -->
+            <Border Grid.Row="2" Grid.Column="2"
+                    BorderBrush="Black" BorderThickness="1"
+                    Padding="1">
+                <TextBlock Text="{Binding RestTimeStr}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           FontSize="16"/>
+            </Border>
+
+            <!-- 現時刻 -->
+            <Border Grid.Row="3" Grid.Column="2"
+                    BorderBrush="Black" BorderThickness="1"
+                    Padding="1">
+                <TextBlock Text="{Binding NowTimeStr}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           FontSize="16"/>
+            </Border>
+        </Grid>
+    </DockPanel>
+
+    </Window>
