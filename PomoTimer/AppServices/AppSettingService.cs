@@ -4,7 +4,7 @@
     {
         public string appName { get; private set; } = "PomoTimer";
         public string codeName { get; private set; } = "Unu";
-        public string updateDateStr { get; private set; } = "260306";
+        public string updateDateStr { get; private set; } = "260308";
         public string revisionStr { get; private set; } = "1";
         public AppSettingService() { }
 

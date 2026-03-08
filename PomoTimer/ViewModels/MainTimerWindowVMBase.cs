@@ -94,27 +94,23 @@ namespace PomoTimer.ViewModels
                 _toastService.ShowToast("休憩時間の3分前です。休憩の準備をしてください。");
             }
             // 17時になったら、アプリを終了する
-            AppShutdownAt17pm();
+            if(IsNow17pm()) AppShutdown();
             // 21時になったら、自動でPCごとシャットダウンする
-            SystemShutdownAt21pm();
+            if (IsNow21pm()) SystemShutdown();
         }
-        protected void AppShutdownAt17pm()
+        protected bool IsNow17pm() => (_now == _timerService.CreateDateTime(_now, 17, 0, 0));
+        protected void AppShutdown()
         {
-            if (_now == _timerService.CreateDateTime(_now, 17, 0, 0))
-            {
-                _loggerService.Info("App Auto Exit.(17:00)");
-                _toastService.ShowToast("17時になりましたので、自動終了しました。");
-                Dispose();
-                Application.Current.Shutdown();
-            }
+            _loggerService.Info("App Auto Exit.(17:00)");
+            _toastService.ShowToast("17時になりましたので、自動終了しました。");
+            Dispose();
+            Application.Current.Shutdown();
         }
-        public void SystemShutdownAt21pm()
+        protected bool IsNow21pm() => (_now == _timerService.CreateDateTime(_now, 21, 0, 0));
+        public void SystemShutdown()
         {
-            if (_now == _timerService.CreateDateTime(_now, 21, 0, 0))
-            {
-                _loggerService.Info("System Auto Shutdown.(21:00)");
-                _shutdownService.Shutdown();
-            }
+            _loggerService.Info("System Auto Shutdown.(21:00)");
+            _shutdownService.Shutdown();
         }
         protected void Dispose()
         {
