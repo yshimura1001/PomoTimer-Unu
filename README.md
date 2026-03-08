@@ -46,18 +46,18 @@
 - **ダークモード切替**: メインウィンドウのダークモードを切替可能。
 - **最前面表示切替**: ウィンドウを常に最前面に表示するか切替可能。
 
-## 使用技術
+## 技術スタック
 
 | カテゴリ | 技術 |
 |---|---|
-| 言語 | C#|
+| 言語 | C# |
 | フレームワーク | .NET 10 / WPF |
 | アーキテクチャ | MVVM |
-| MVVMライブラリ | CommunityToolkit.Mvvm 8.4 |
+| MVVMライブラリ | CommunityToolkit.Mvvm |
 | DIコンテナ | Microsoft.Extensions.DependencyInjection |
 | 通知 | Microsoft.Toolkit.Uwp.Notifications |
 | テスト用時刻制御 | Microsoft.Extensions.TimeProvider.Testing |
-| Excel操作 | ClosedXML 0.105 |
+| Excel操作 | ClosedXML |
 | ターゲットOS | Windows 10 (10.0.17763) 以降 |
 
 ## アーキテクチャ
