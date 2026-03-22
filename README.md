@@ -51,7 +51,7 @@
 | カテゴリ | 技術 |
 |---|---|
 | 言語 | C# |
-| フレームワーク | .NET 10 / WPF |
+| フレームワーク | .NET 9 / WPF |
 | アーキテクチャ | MVVM |
 | MVVMライブラリ | CommunityToolkit.Mvvm |
 | DIコンテナ | Microsoft.Extensions.DependencyInjection |
