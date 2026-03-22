@@ -1,0 +1,162 @@
+﻿<Window x:Class="PomoTimer.ConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="PomoTimer Unu - 設定"
+        Width="750" Height="650"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        FontSize="14"
+        Closing="OnClosing">
+    <Window.Resources>
+        <!-- 行の高さ/ヘッダーの中央寄せなど、見た目を画像に寄せるスタイル -->
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="All"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="True"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="RowHeaderWidth" Value="25"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#FFC9C9C9"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#FFC9C9C9"/>
+        </Style>
+
+        <!-- ヘッダーを中央揃えに -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- セル内テキストを上下中央に -->
+        <Style x:Key="CellTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="4,0,4,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 上部の注意書き -->
+        <Border Grid.Row="0" Margin="0,0,0,6" Padding="6" BorderThickness="1">
+            <TextBlock TextWrapping="Wrap">
+                ※フラグにチェックが付いている、かつ現在時刻が開始時刻と一致した場合のみ通知します。<LineBreak/>
+                ※この画面で更新したものはファイルに反映されません。その場合は、CSVファイルを更新してください。
+            </TextBlock>
+        </Border>
+
+        <!-- メインの DataGrid -->
+        <DataGrid Grid.Row="1"
+                  x:Name="TimeTableGrid"
+                  ItemsSource="{Binding TimeTableRows}"
+                  IsReadOnly="False"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
+
+            <!-- 列定義（画像の列順に合わせる） -->
+            <DataGrid.Columns>
+                <!-- isOn: CheckBox -->
+                <DataGridCheckBoxColumn Binding="{Binding IsOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Width="60"
+                                        IsThreeState="False"
+                                        Header="フラグ" />
+
+                <!-- startTimeStr -->
+                <DataGridTextColumn Header="開始時刻"
+                                    Binding="{Binding StartTimeStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlockStyle}">
+                            <Setter Property="TextAlignment" Value="Left"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <!-- endTimeStr -->
+                <DataGridTextColumn Header="終了時刻"
+                                    Binding="{Binding EndTimeStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlockStyle}">
+                            <Setter Property="TextAlignment" Value="Left"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <!-- timeFrameStr -->
+                <DataGridTextColumn Header="時間枠名"
+                                    Width="250"
+                                    Binding="{Binding TimeFrameStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlockStyle}">
+                            <Setter Property="TextAlignment" Value="Left"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <!-- notificationEndStr -->
+                <DataGridTextColumn Header="通知文末"
+                                    Width="120"
+                                    Binding="{Binding NotificationEndStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlockStyle}">
+                            <Setter Property="TextAlignment" Value="Left"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <!-- breakMinutes -->
+                <DataGridTextColumn Header="休憩時間(分)"
+                                    Width="*"
+                                    Binding="{Binding BreakTimeMinutes, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlockStyle}">
+                            <Setter Property="TextAlignment" Value="Left"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- 下部の余白（必要ならOK/Cancelボタン等） -->
+        <DockPanel Grid.Row="2" LastChildFill="False" Margin="0,6,0,0">
+            <!-- ここにボタンを置く場合：
+            <Button Content="OK" Width="100" Margin="0,0,8,0" DockPanel.Dock="Right"/>
+            <Button Content="キャンセル" Width="100" DockPanel.Dock="Right"/>
+            -->
+        </DockPanel>
+    </Grid>
+</Window>
+

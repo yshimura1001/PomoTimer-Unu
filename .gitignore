@@ -1,0 +1,8 @@
+/.vs
+/PomoTimer/bin
+/PomoTimer/obj
+/Test/bin
+/Test/obj
+*.user
+TestResults/
+*.nupkg
